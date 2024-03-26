@@ -1,11 +1,12 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, UseGuards } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { BaseController } from 'src/based-controllers/based-controller.controller';
 import { ReturnValue } from 'src/based-services/based-services.service';
 import { PlaceType } from './place-tye.schema';
 import { PlaceTypeService } from './place-type.service';
+import { AccessTokenGuard } from 'src/common/accessToken.guard';
 
-@Controller('placeType')
+@Controller('category')
 export class PlaceTypeController extends BaseController<PlaceType> {
   constructor(private readonly placeTypeService: PlaceTypeService) {
     super(placeTypeService);
@@ -15,6 +16,8 @@ export class PlaceTypeController extends BaseController<PlaceType> {
   create(createDto: any): Promise<Omit<ReturnValue<PlaceType>, 'data'>> {
     return this.placeTypeService.create(createDto);
   }
+
+  @UseGuards(AccessTokenGuard)
   @Get()
   findAll(): Promise<ReturnValue<PlaceType[]>> {
     return this.placeTypeService.findAll();

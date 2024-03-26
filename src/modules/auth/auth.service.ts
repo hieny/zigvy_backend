@@ -92,7 +92,7 @@ export class JwtAuthenService {
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: '1d',
+          expiresIn: '30s',
         },
       ),
       this.jwtService.signAsync(
@@ -123,6 +123,7 @@ export class JwtAuthenService {
     status: boolean;
     data: { accessToken: string; refreshToken: string };
   }> {
+    console.log("userID", userId)
     const user = await this.usersService.findOne(userId);
     if (!user || !user.data.refreshToken)
       throw new ForbiddenException('Access Denied');

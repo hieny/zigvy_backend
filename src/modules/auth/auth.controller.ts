@@ -21,7 +21,7 @@ export class JwtAuthenController {
   }
 
   @UseGuards(AccessTokenGuard)
-  @Get('logout')
+  @Post('logout')
   logout(@Req() req: Request) {
     this.authService.logout(req.user['sub']);
   }
