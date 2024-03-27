@@ -63,7 +63,7 @@ export class JwtAuthenService {
     return {
       status: true,
       message: 'Successfully logged out',
-    }
+    };
   }
 
   hashData(data: string) {
@@ -123,7 +123,6 @@ export class JwtAuthenService {
     status: boolean;
     data: { accessToken: string; refreshToken: string };
   }> {
-    console.log("userID", userId)
     const user = await this.usersService.findOne(userId);
     if (!user || !user.data.refreshToken)
       throw new ForbiddenException('Access Denied');

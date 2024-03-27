@@ -5,6 +5,7 @@ import { ReturnValue } from 'src/based-services/based-services.service';
 import { PlaceType } from './place-tye.schema';
 import { PlaceTypeService } from './place-type.service';
 import { AccessTokenGuard } from 'src/common/accessToken.guard';
+import { CreatePlaceTypeDto } from './dto/create-place-type.dto';
 
 @Controller('category')
 export class PlaceTypeController extends BaseController<PlaceType> {
@@ -13,11 +14,11 @@ export class PlaceTypeController extends BaseController<PlaceType> {
   }
 
   @Post()
-  create(createDto: any): Promise<Omit<ReturnValue<PlaceType>, 'data'>> {
+  create(createDto: PlaceType): Promise<Omit<ReturnValue<PlaceType>, 'data'>> {
     return this.placeTypeService.create(createDto);
   }
 
-  @UseGuards(AccessTokenGuard)
+  // @UseGuards(AccessTokenGuard)
   @Get()
   findAll(): Promise<ReturnValue<PlaceType[]>> {
     return this.placeTypeService.findAll();

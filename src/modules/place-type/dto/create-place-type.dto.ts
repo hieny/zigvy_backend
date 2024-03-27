@@ -5,5 +5,5 @@ export class CreatePlaceTypeDto {
     name: string
 
     @IsString()
-    stringUrl: string
+    iconUrl: string
 }
