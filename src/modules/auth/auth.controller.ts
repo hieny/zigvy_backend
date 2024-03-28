@@ -5,7 +5,9 @@ import { BaseUserDto } from '../user/dto/base-user.dto';
 import { Request } from 'express';
 import { AccessTokenGuard } from 'src/common/accessToken.guard';
 import { RefreshTokenGuard } from 'src/common/refreshToken.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('authen')
 @Controller('authen')
 export class JwtAuthenController {
   constructor(private authService: JwtAuthenService) {}

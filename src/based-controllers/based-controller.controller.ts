@@ -1,4 +1,4 @@
-import { Body, Controller, Param, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Param, Query, ValidationPipe } from '@nestjs/common';
 import { BasedService } from 'src/based-services/based-services.service';
 
 @Controller()
@@ -11,6 +11,10 @@ export abstract class BaseController<T> {
 
   findAll() {
     return this.service.findAll();
+  }
+
+  findAllWithPagination(@Query() { skip, limit }) {
+    return this.service.findWithPagination(skip, limit);
   }
 
   findOne(@Param('id') id: string) {

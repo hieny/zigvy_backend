@@ -4,6 +4,11 @@ export class ReturnValue<T> {
   status: boolean;
   data?: T;
   message?: string;
+  pagination?: {
+    currentPage: number;
+    limit: number;
+    totalPage: number;
+  };
 }
 
 export abstract class BasedService<T> {
@@ -16,6 +21,29 @@ export abstract class BasedService<T> {
       return { status: false, data: [], message: error.message };
     }
   }
+
+  async findWithPagination(
+    documentToSkip = 0, 
+    limitOfDocument?: number,
+  ): Promise<ReturnValue<T[]>> {
+    try {
+      const data = await this.model
+        .find()
+        .skip(documentToSkip)
+        .limit(limitOfDocument)
+        .exec();
+      const total = await this.model.find().countDocuments().exec();
+      const pagination = {
+        currentPage: Math.floor(documentToSkip / limitOfDocument) + 1,
+        limit: limitOfDocument,
+        totalPage: Math.ceil(total / limitOfDocument),
+      };
+      return { status: true, data, pagination: pagination };
+    } catch (error) {
+      return { status: false, data: [], message: error.message };
+    }
+  }
+
   async findOne(id: string): Promise<ReturnValue<T>> {
     try {
       const data = await this.model.findOne({ _id: id }).exec();

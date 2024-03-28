@@ -6,7 +6,9 @@ import { PlaceType } from './place-tye.schema';
 import { PlaceTypeService } from './place-type.service';
 import { AccessTokenGuard } from 'src/common/accessToken.guard';
 import { CreatePlaceTypeDto } from './dto/create-place-type.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("category")
 @Controller('category')
 export class PlaceTypeController extends BaseController<PlaceType> {
   constructor(private readonly placeTypeService: PlaceTypeService) {
