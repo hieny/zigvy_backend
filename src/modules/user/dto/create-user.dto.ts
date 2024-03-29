@@ -1,5 +1,7 @@
-import { BaseUserDto } from "./base-user.dto";
+import { BaseUserDto } from './base-user.dto';
 
-export class CreateUserDto extends BaseUserDto {
-    refreshToken: string
+export class CreateUserDto {
+  username: string;
+  password: string;
+  refreshToken: string;
 }

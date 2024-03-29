@@ -16,6 +16,7 @@ import { PlaceModule } from './modules/place/place.module';
     PlaceModule,
     MongooseModule.forRoot('mongodb://localhost/zigvy'),
     ConfigModule.forRoot(),
+    
   ],
   controllers: [AppController],
   providers: [AppService],

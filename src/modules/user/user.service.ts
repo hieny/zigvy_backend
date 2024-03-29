@@ -1,11 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Injectable,
+  UseInterceptors,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 // import { User } from './entities/user.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { UserDocument, User } from './user.schema';
-import { Model } from 'mongoose';
-import { BasedService } from 'src/based-services/based-services.service';
+import mongoose, { Model } from 'mongoose';
+import {
+  BasedService,
+  ReturnValue,
+} from 'src/based-services/based-services.service';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService extends BasedService<User> {
@@ -25,5 +33,28 @@ export class UserService extends BasedService<User> {
     } catch (error) {
       return { status: false, message: error.message };
     }
+  }
+
+
+  async findOneUser(id: string): Promise<ReturnValue<User>> {
+    const data = await this.model.aggregate([
+      {
+        $match: {
+          _id: new mongoose.Types.ObjectId(id)
+        }
+      },
+      {
+        $project: {
+          password: 0,
+          refreshToken: 0, 
+        },
+      },
+    ]);
+    const userData = data.length > 0 ? data[0] : null as User
+    
+    console.log("data", data)
+    // Return the first item in the data array, if found
+    return {status: true, data: userData}
+   
   }
 }

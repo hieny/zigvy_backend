@@ -1,5 +1,6 @@
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Delete,
   Get,
@@ -8,7 +9,9 @@ import {
   Post,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { ApiTags, OmitType } from '@nestjs/swagger';
 import { BaseController } from 'src/based-controllers/based-controller.controller';
 import { ReturnValue } from 'src/based-services/based-services.service';
 import { AccessTokenGuard } from 'src/common/accessToken.guard';
@@ -16,10 +19,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.schema';
 import { UserService } from './user.service';
-import { ApiTags } from '@nestjs/swagger';
+import { UserDto } from './dto/user.dto';
 
 @ApiTags('user')
 @Controller('user')
+
 export class UserController extends BaseController<User> {
   constructor(private readonly userService: UserService) {
     super(userService);
@@ -30,7 +34,6 @@ export class UserController extends BaseController<User> {
   findAll(): Promise<ReturnValue<User[]>> {
     return this.userService.findAll();
   }
-
   @UseGuards(AccessTokenGuard)
   @HttpCode(200)
   @Post()
@@ -44,10 +47,11 @@ export class UserController extends BaseController<User> {
     return this.userService.update(id, updateUserDto);
   }
 
+ 
   @UseGuards(AccessTokenGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
+  findOneUser(@Param('id') id: string) {
+    return this.userService.findOneUser(id);
   }
 
   @UseGuards(AccessTokenGuard)

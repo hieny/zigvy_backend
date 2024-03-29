@@ -10,6 +10,8 @@ async function bootstrap() {
     .setTitle('Zigvy training')
     .setDescription('Zigvy training')
     .setVersion('1.0')
+    .addBearerAuth()
+    .addSecurityRequirements('bearer')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
