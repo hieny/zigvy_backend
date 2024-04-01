@@ -21,10 +21,10 @@ export class PlaceTypeController extends BaseController<PlaceType> {
   }
 
   // @UseGuards(AccessTokenGuard)
-  @Get()
-  findAll(): Promise<ReturnValue<PlaceType[]>> {
-    return this.placeTypeService.findAll();
-  }
+  // @Get()
+  // findAll(): Promise<ReturnValue<PlaceType[]>> {
+  //   return this.placeTypeService.findAll();
+  // }
 
   @Get(':id')
   findOne(id: string): Promise<ReturnValue<PlaceType>> {

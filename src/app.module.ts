@@ -10,7 +10,7 @@ import { PlaceModule } from './modules/place/place.module';
 
 @Module({
   imports: [
-    JwtAuthenModule,
+    // JwtAuthenModule,
     UserModule,
     PlaceTypeModule,
     PlaceModule,

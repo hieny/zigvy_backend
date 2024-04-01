@@ -12,28 +12,28 @@ import { ApiTags } from '@nestjs/swagger';
 export class JwtAuthenController {
   constructor(private authService: JwtAuthenService) {}
 
-  @Post('signup')
-  signup(@Body() createUserDto: CreateUserDto) {
-    return this.authService.signUp(createUserDto);
-  }
+  // @Post('signup')
+  // signup(@Body() createUserDto: CreateUserDto) {
+  //   return this.authService.signUp(createUserDto);
+  // }
 
-  @Post('signin')
-  signin(@Body() data: BaseUserDto) {
-    return this.authService.signIn(data);
-  }
+  // @Post('signin')
+  // signin(@Body() data: BaseUserDto) {
+  //   return this.authService.signIn(data);
+  // }
 
-  @UseGuards(AccessTokenGuard)
-  @Post('logout')
-  logout(@Req() req: Request) {
-    this.authService.logout(req.user['sub']);
-  }
+  // @UseGuards(AccessTokenGuard)
+  // @Post('logout')
+  // logout(@Req() req: Request) {
+  //   this.authService.logout(req.user['sub']);
+  // }
 
-  @UseGuards(RefreshTokenGuard)
-  @Get('refresh')
-  refreshToken(@Req() req: Request) {
-    const userId = req.user['sub'];
-    const refreshToken = req.user['refreshToken'];
-    // console.log("refreshToken", refreshToken)
-    return this.authService.refreshTokens(userId, refreshToken);
-  }
+  // @UseGuards(RefreshTokenGuard)
+  // @Get('refresh')
+  // refreshToken(@Req() req: Request) {
+  //   const userId = req.user['sub'];
+  //   const refreshToken = req.user['refreshToken'];
+  //   // console.log("refreshToken", refreshToken)
+  //   return this.authService.refreshTokens(userId, refreshToken);
+  // }
 }

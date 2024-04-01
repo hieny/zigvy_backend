@@ -28,7 +28,7 @@ export class JwtAuthenService {
 
     // Hash password
     const hash = await this.hashData(createUserDto.password);
-    const newUser = await this.usersService.createUser({
+    const newUser = await this.usersService.create({
       ...createUserDto,
       password: hash,
     });
@@ -123,7 +123,7 @@ export class JwtAuthenService {
     status: boolean;
     data: { accessToken: string; refreshToken: string };
   }> {
-    const user = await this.usersService.findOne(userId);
+    const user = await this.usersService.findOneUser(userId);
     if (!user || !user.data.refreshToken)
       throw new ForbiddenException('Access Denied');
     const refreshTokenMatches = await argon2.verify(

@@ -16,10 +16,8 @@ export abstract class BaseController<T> {
   findAllWithPagination(@Query() { skip, limit }) {
     return this.service.findWithPagination(skip, limit);
   }
-
   findOne(@Param('id') id: string) {
-    return this.service.findOne(id);
-  }
+    return this.service.findOne(id);  }
 
   update(@Param('id') id: string, @Body(new ValidationPipe()) updateDto: any) {
     return this.service.update(id, updateDto);
@@ -27,5 +25,11 @@ export abstract class BaseController<T> {
 
   delete(@Param('id') id: string) {
     return this.service.delete(id);
+    
   }
 }
+
+
+// export interface BaseController<T> {
+//     findAll(): Promise<T>
+// }
